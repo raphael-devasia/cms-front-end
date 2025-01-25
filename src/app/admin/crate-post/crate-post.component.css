@@ -1,0 +1,31 @@
+/* Styling for the image upload area to make it larger and more visible */
+#postImage {
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+#uploadedImage {
+  display: block;
+  margin-top: 10px;
+  max-width: 100%;
+  max-height: 300px;
+}
+
+/* Add some styling to the CKEditor to make it fit nicely */
+.ckeditor-editor {
+  height: 300px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+}
+
+/* Styling for the submit button */
+button[type="submit"] {
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #007bff;
+}

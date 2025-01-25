@@ -1,0 +1,125 @@
+/* General styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Navbar */
+
+.navbar .nav-link {
+    color: #fff !important;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+.navbar .nav-link:hover {
+    background-color: #ff6347;
+    color: #fff !important;
+}
+
+/* Header */
+.header-top {
+    background-color: #222;
+    color: #fff;
+    margin-bottom: 30px; /* Added margin below the header */
+}
+
+/* Search */
+.search-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-wrap.active {
+    display: flex;
+}
+
+.search-form .form-control {
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 500px;
+    margin-right: 10px;
+}
+
+/* Post grid */
+.post-grid {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-grid:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.post-thumb img {
+    border-radius: 10px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.post-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+/* Footer */
+.footer-section {
+    background-color: #222;
+    color: #fff;
+    padding: 30px 0;
+}
+
+.footer-logo {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.footer-socials a {
+    color: #fff;
+    font-size: 18px;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.footer-socials a:hover {
+    color: #ff6347;
+}
+
+.copyright {
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+/* Pagination */
+.pagination a {
+    color: #333;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    margin-right: 5px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.pagination a.active {
+    background-color: #ff6347;
+    color: #fff;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}

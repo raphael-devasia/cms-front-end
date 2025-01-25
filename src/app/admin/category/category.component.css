@@ -1,0 +1,24 @@
+  .category-section .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: background-color 0.3s ease;
+    }
+
+    .category-section .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .category-section .table th {
+        text-align: center;
+    }
+
+    .category-section .table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .category-section .card-title {
+        font-weight: bold;
+        color: #343a40;
+    }

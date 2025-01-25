@@ -1,0 +1,63 @@
+<section class="blog-section mt-5">
+    <div class="container" style="max-width: 70%;">
+        <!-- Blog Section Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="mb-0">All Blog Posts</h4>
+            <div>
+                <button (click)="navigateToWriteABlog()" class="btn btn-primary me-2">Write a Blog</button>
+                <button class="btn btn-secondary">Return to Dashboard</button>
+            </div>
+        </div>
+
+        <!-- Blog Posts Table -->
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Post Image</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let post of posts; let i = index">
+                                <td>{{ i + 1 }}</td>
+                                <td>
+                                    <img [src]="post.image || 'https://via.placeholder.com/50'" alt="Post Image"
+                                        class="img-thumbnail" />
+                                </td>
+                                <td>{{ post.title }}</td>
+                                <td>{{ post.category.category }}</td>
+                                <td>{{ post.createdAt | date: 'yyyy-MM-dd' }}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-warning me-2" (click)="editPost(post._id)">
+                                        Edit
+                                    </button>
+                                    <button class="btn btn-sm btn-danger me-2" (click)="deletePost(post._id)">
+                                        Delete
+                                    </button>
+                                    <button class="btn btn-sm"
+                                        [ngClass]="post.isFeatured ? 'btn-secondary' : 'btn-success'"
+                                        (click)="toggleFeatured(post.id, post.isFeatured)">
+                                        {{ post.isFeatured ? 'Remove Featured' : 'Mark Featured' }}
+                                    </button>
+                                    <!-- Delete Modal -->
+                                    <app-delete-modal *ngIf="showDeleteModal" (closeModal)="closeDeleteModal()" [selectedPostId]="selectedPostId"
+                                        [deleteItem]="deleteResource.bind(this)"></app-delete-modal>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p *ngIf="posts.length === 0" class="text-center mt-4 text-muted">
+                    No posts available. Please add one!
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,125 @@
+<section class="edit-post-section mt-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="mb-0">create New Post</h4>
+        </div>
+
+        <div class="card p-4 shadow-sm">
+            <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+                <div class="row mb-4">
+                    <!-- Left Column -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="postTitle" class="form-label">Post Title</label>
+                            <input type="text" class="form-control" id="postTitle" placeholder="Enter post title"
+                                (keyup)="onTitleChanged($event)" formControlName="title"
+                                [ngClass]="{'is-invalid': (fc['title'].dirty || fc['title'].touched) && fc['title'].errors}"
+                                required />
+                            <div class="invalid-feedback" *ngIf="shouldShowError('title', 'required')">
+                                Title is required.
+                            </div>
+                            <div class="invalid-feedback" *ngIf="shouldShowError('title', 'pattern')">
+                                Title must contain letters only (spaces allowed).
+                            </div>
+                            <div class="invalid-feedback" *ngIf="shouldShowError('title', 'minlength')">
+                                Title must be more than 5 characters.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="postPermalink" class="form-label">Permalink</label>
+                            <input type="text" class="form-control" id="postPermalink" [(ngModel)]="permalink"
+                                name="permalink" formControlName="permalink" readonly />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="postExcerpt" class="form-label">Excerpt</label>
+                            <textarea class="form-control" id="postExcerpt"
+                                placeholder="Enter excerpt (minimum 10 characters)" formControlName="excerpt"
+                                [ngClass]="{'is-invalid': (fc['excerpt'].dirty || fc['excerpt'].touched) && fc['excerpt'].errors}"
+                                rows="3" required></textarea>
+                            <div class="invalid-feedback" *ngIf="shouldShowError('excerpt', 'required')">
+                                Excerpt is required.
+                            </div>
+                            <div class="invalid-feedback" *ngIf="shouldShowError('excerpt', 'minlength')">
+                                Excerpt must be more than 10 characters.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="postCategory" class="form-label">Choose Category</label>
+                        <select class="form-select" id="postCategory" formControlName="category" [ngClass]="{
+                          'is-invalid': (fc['category'].dirty || fc['category'].touched) && fc['category'].errors
+                        }" required>
+                            <option value="" selected disabled>Choose a category</option>
+                            <option *ngFor="let category of categories" [ngValue]="category">
+                                {{ category.name }}
+                            </option>
+                        </select>
+                        <div class="invalid-feedback" *ngIf="shouldShowError('category', 'required')">
+                            Category is required.
+                        </div>
+                    </div>
+
+
+
+                        <!-- <div class="mb-3">
+                            <label for="postImage" class="form-label">Choose Image</label>
+                            <img [src]="imgSrc" class="form-control img-fluid img-preview border mb-2"
+                                alt="Post Image" />
+                            <input type="file" class="form-control" id="postImage" accept="image/*"
+                                (change)="showPreview($event)" formControlName="image"
+                                [ngClass]="{'is-invalid': (fc['image'].dirty || fc['image'].touched) && fc['image'].errors}"
+                                required />
+                            <div class="invalid-feedback" *ngIf="shouldShowError('image', 'required')">
+                                Image is required.
+                            </div>
+                        </div> -->
+                    <!-- <div class="mb-3">
+                        <label for="postImage" class="form-label">Choose Image</label>
+                        <img *ngIf="imgSrc" [src]="imgSrc" class="form-control img-fluid img-preview border mb-2" alt="Post Image" />
+                        <input type="file" class="form-control" id="postImage" accept="image/*" (change)="showPreview($event)"
+                            formControlName="image"
+                            [ngClass]="{'is-invalid': (fc['image'].dirty || fc['image'].touched) && fc['image'].errors}" required />
+                        <button *ngIf="imgSrc" class="btn btn-danger btn-sm" (click)="removeImage()">Remove Image</button>
+                        <div class="invalid-feedback" *ngIf="shouldShowError('image', 'required')">Image is required.</div>
+                    </div> -->
+<div class="mb-3">
+    <label for="postImage" class="form-label">Choose Image</label>
+    <img *ngIf="imgSrc" [src]="imgSrc" class="form-control img-fluid img-preview border mb-2" alt="Post Image" />
+    <input type="file" class="form-control" id="postImage" accept="image/*" (change)="showPreview($event)"
+/>
+   
+    <div class="invalid-feedback" *ngIf="shouldShowError('image', 'required')">Image is required.</div>
+</div>
+
+                    </div>
+                </div>
+
+                <!-- Post Body Editor -->
+                <div class="mb-3">
+                    <label for="postBody" class="form-label">Post Body</label>
+                    <angular-editor [config]="editorConfig" placeholder="Add your content here"
+                        formControlName="content" required></angular-editor>
+                    <div class="text-danger small" *ngIf="shouldShowError('content', 'required')">
+                        Content is required.
+                    </div>
+                    <div class="text-danger small" *ngIf="shouldShowError('content', 'minlength')">
+                        Content must be more than 10 characters.
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary" [disabled]="!isFormValidExceptImage()">
+                        Publish Post
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</section>

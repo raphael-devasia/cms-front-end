@@ -1,0 +1,46 @@
+<header class="header-top bg-dark py-4">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="#">
+                <img src="images/logo-w.png" alt="Logo" class="img-fluid">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse"
+                aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="ti-menu text-white"></span>
+            </button>
+            <div class="collapse navbar-collapse ms-5" id="navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <!-- Static Home Menu -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">Home</a>
+                    </li>
+                
+                    <!-- Dynamic Blog Posts based on categories -->
+                    <li class="nav-item dropdown" *ngFor="let category of categories">
+                        <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                
+                    
+                
+                    <!-- Static Post Format -->
+                    
+                
+                    <!-- Static Contact Menu -->
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Author</a></li>
+                </ul>
+
+                <div class="search ml-4">
+                    <div class="search_toggle">
+                        <i class="ti-search text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+
+

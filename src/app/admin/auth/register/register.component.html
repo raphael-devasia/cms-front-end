@@ -1,0 +1,71 @@
+<div class="container my-5 d-flex justify-content-center align-items-center">
+    <div class="card shadow-lg rounded-4 p-4 bg-light" style="max-width: 500px; width: 100%;">
+        <div class="card-body text-center">
+            <h3 class="mb-3 fw-bold text-dark">Register</h3>
+            <p class="text-muted mb-4">Create your account</p>
+
+            <!-- Registration Form -->
+            <form [formGroup]="registerForm" class="mt-3">
+                <!-- First Name Field -->
+                <div class="form-group mb-4">
+                    <label for="firstName" class="form-label text-start w-100 fw-bold">First Name*</label>
+                    <input id="firstName" type="text" class="form-control shadow-sm rounded-3" placeholder="John"
+                        formControlName="firstName">
+                </div>
+
+                <!-- Last Name Field -->
+                <div class="form-group mb-4">
+                    <label for="lastName" class="form-label text-start w-100 fw-bold">Last Name*</label>
+                    <input id="lastName" type="text" class="form-control shadow-sm rounded-3" placeholder="Doe"
+                        formControlName="lastName">
+                </div>
+
+                <!-- Email Field -->
+                <div class="form-group mb-4">
+                    <label for="email" class="form-label text-start w-100 fw-bold">Email*</label>
+                    <input id="email" type="email" class="form-control shadow-sm rounded-3"
+                        placeholder="mail@example.com" formControlName="email">
+                </div>
+
+                <!-- Phone Number Field -->
+                <div class="form-group mb-4">
+                    <label for="phone" class="form-label text-start w-100 fw-bold">Phone Number*</label>
+                    <input id="phone" type="tel" class="form-control shadow-sm rounded-3" placeholder="123-456-7890"
+                        formControlName="phone">
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group mb-4">
+                    <label for="password" class="form-label text-start w-100 fw-bold">Password*</label>
+                    <input id="password" type="password" class="form-control shadow-sm rounded-3"
+                        placeholder="Enter your password" formControlName="password">
+                </div>
+
+                <!-- Confirm Password Field -->
+                <div class="form-group mb-4">
+                    <label for="confirmPassword" class="form-label text-start w-100 fw-bold">Confirm Password*</label>
+                    <input id="confirmPassword" type="password" class="form-control shadow-sm rounded-3"
+                        placeholder="Confirm your password" formControlName="confirmPassword">
+                </div>
+
+                <!-- Error Message -->
+                <div *ngIf="getFirstErrorMessage()" class="alert alert-danger p-2 rounded-3 text-start">
+                    {{ getFirstErrorMessage() }}
+                </div>
+
+                <!-- Register Button -->
+                <button [disabled]="registerForm.invalid" class="btn btn-primary w-100 py-2 shadow-sm rounded-3 fw-bold"
+                    (click)="registerFormSubmit()">Register</button>
+            </form>
+
+            <!-- Login Link -->
+            <p class="mt-4 text-muted">
+                Already have an account?
+                <button class="btn btn-link text-decoration-none text-primary fw-bold p-0" (click)="goToLogin()">Sign
+                    In</button>
+            </p>
+        </div>
+       
+    </div>
+</div>
+
