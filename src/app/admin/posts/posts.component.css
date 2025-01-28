@@ -41,3 +41,18 @@
         max-width: 50px;
         height: auto;
     }
+    .center-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;    /* Center vertically */
+  padding-top: 2rem;        /* Full viewport height */
+  width: 100vw;           /* Full viewport width */
+  
+}
+
+.mat-mdc-dialog-surface {
+  background-color: #f0f1f2; /* Custom background color */
+  padding: 20px; /* Add padding */
+  border-radius: 8px; /* Optional: Add rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
+}

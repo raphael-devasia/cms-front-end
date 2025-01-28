@@ -46,7 +46,8 @@ export class SinglePostComponent {
   postId!: string;
   categories: any[] = [];
   posts!: Post;
-  userId!:string;
+  userId!: string;
+  comments: any[] = [];
 
   private userService = inject(UserService);
 
@@ -56,13 +57,24 @@ export class SinglePostComponent {
   ngOnInit(): void {
     // Get the user ID from the route parameters
     this.route.paramMap.subscribe((params) => {
-      this.postId = params.get('id') || ''; // 'id' is the dynamic route parameter
-     
-     
+      this.postId = params.get('postId') || ''; // 'id' is the dynamic route parameter
+      this.userId = params.get('userId') || '';
+      console.log('the param is ', this.userId);
     });
-    
+
     this.getPost();
-    
+    this.fetchComments()
+  }
+  fetchComments() {
+    this.userService.getPostComments(this.postId).subscribe({
+      next: (response: any) => {
+        this.comments = response.data;
+      },
+      error: (error) => {
+        this.toastr.error('Error fetching comments');
+        console.error('Error:', error);
+      },
+    });
   }
   getCategories() {
     this.userService.getallCategories(this.userId).subscribe(
@@ -80,7 +92,7 @@ export class SinglePostComponent {
       (data: any) => {
         this.posts = data.data;
         console.log(this.posts);
-        this.userId=this.posts.userId;
+        // this.userId=this.posts.userId;
         this.getCategories();
       },
       (error) => {

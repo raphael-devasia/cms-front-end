@@ -9,11 +9,18 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
+import { BackToDashboardComponent } from '../../shared/back-to-dashboard/back-to-dashboard.component';
+import { AdminNavbarComponent } from '../admin-navbar/admin-navbar.component';
 
 @Component({
   selector: 'app-category',
   standalone: true,
-  imports: [ReactiveFormsModule,CommonModule,FormsModule],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
+    BackToDashboardComponent,AdminNavbarComponent
+  ],
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css'],
 })
@@ -31,7 +38,11 @@ export class CategoryComponent {
   constructor(private http: UserService) {
     // Create form group and define form controls
     this.categoryForm = new FormGroup({
-      categoryName: new FormControl('', [Validators.required]), // Required validation
+      categoryName: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.pattern('^[A-Za-z]+( [A-Za-z]+)*$'),
+      ]), // Required validation
     });
   }
 
@@ -39,14 +50,12 @@ export class CategoryComponent {
     const userProfile = JSON.parse(localStorage.getItem('userProfile')!);
     this.userId = userProfile.userId;
     this.getCategories();
-    
-    
   }
 
   // Function to fetch categories
   getCategories() {
     this.http.getCategories().subscribe(
-      (data:any) => {
+      (data: any) => {
         this.categories = data.data;
         console.log(this.categories);
       },
@@ -75,8 +84,7 @@ export class CategoryComponent {
       this.toastr.error('You can only add a maximum of 6 categories');
       return;
     }
-  
-    
+
     const newCategory = {
       name: this.categoryForm.value.categoryName,
       userId: this.userId,
@@ -135,5 +143,8 @@ export class CategoryComponent {
         this.toastr.error('Failed to delete category');
       }
     );
+  }
+  cancelEdit(){
+    this.isEdit=false
   }
 }

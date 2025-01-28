@@ -33,6 +33,7 @@ import { UploadServiceService } from '../../services/upload-service.service';
 import { UserService } from '../../services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AdminNavbarComponent } from '../admin-navbar/admin-navbar.component';
 
 @Component({
   selector: 'app-update-post',
@@ -41,7 +42,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    AngularEditorModule,
+    AngularEditorModule,AdminNavbarComponent
   ],
   templateUrl: './update-post.component.html',
   styleUrl: './update-post.component.css',

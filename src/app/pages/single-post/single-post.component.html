@@ -42,8 +42,8 @@
                 <!-- Comments Section -->
                 <div class="comments-section mt-5">
                     <h3 class="font-weight-bold mb-4">Comments</h3>
-                    <app-comments-list></app-comments-list>
-                    <app-comment-form></app-comment-form>
+                    <app-comments-list [comments]="comments" ></app-comments-list>
+                    <app-comment-form [userId]="userId" [postId]="postId" ></app-comment-form>
                 </div>
             </div>
         </div>

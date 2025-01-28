@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AdminNavbarComponent } from '../admin-navbar/admin-navbar.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [AdminNavbarComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })

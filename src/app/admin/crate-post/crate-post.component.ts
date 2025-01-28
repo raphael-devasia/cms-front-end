@@ -21,6 +21,7 @@ import { UploadServiceService } from '../../services/upload-service.service';
 import { UserService } from '../../services/user.service';
 import { Toast, ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { AdminNavbarComponent } from '../admin-navbar/admin-navbar.component';
 
 
 @Component({
@@ -30,7 +31,7 @@ import { Router } from '@angular/router';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    AngularEditorModule,
+    AngularEditorModule,AdminNavbarComponent
   ],
   templateUrl: './crate-post.component.html',
   styleUrls: ['./crate-post.component.css'],
@@ -40,11 +41,13 @@ export class CratePostComponent implements OnInit {
   @ViewChild('imageContainer') imageContainer!: ElementRef;
   categories: any[] = [];
   permalink = '';
-  imgSrc: string | null = './images/placeholder-image.jpg';
+  imgSrc: string | null =
+    'https://cms-images-project.s3.eu-north-1.amazonaws.com/uploads/1737996539270_placeholder-image.jpg';
   postForm: FormGroup;
   content: string = ''; // To hold the content of the editor
   imageUrls: string[] = []; // Store image URLs for later use
   submitted = false;
+  isLoading: boolean = false;
   preURLSigned!: string;
   private userProfile = JSON.parse(localStorage.getItem('userProfile')!);
   private userId = this.userProfile.userId;
@@ -56,7 +59,7 @@ export class CratePostComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private uploadService: UploadServiceService,
     private renderer: Renderer2,
-    private toastr:ToastrService,
+    private toastr: ToastrService,
     private router: Router
   ) {
     this.postForm = this.fb.group({
@@ -77,13 +80,9 @@ export class CratePostComponent implements OnInit {
     });
   }
 
-
   ngOnInit() {
     this.getCategories();
-  } 
-    
-    
-
+  }
 
   // Function to fetch categories
   getCategories() {
@@ -147,7 +146,9 @@ export class CratePostComponent implements OnInit {
 
   showPreview(event: any) {
     const file = event.target.files[0];
+    this.isLoading = true; // Start loading
 
+    this.imgSrc = file;
     if (file) {
       // Step 1: Generate the presigned URL from the backend
       this.uploadService.generatePresignedUrl(file.name, file.type).subscribe(
@@ -167,6 +168,7 @@ export class CratePostComponent implements OnInit {
 
                 this.imgSrc = fileUrl; // Update the image source for preview
                 console.log('after', this.imgSrc);
+                this.isLoading = false; // Stop loading
               },
               (error) => {
                 console.error('Error uploading file to S3:', error);
@@ -360,7 +362,6 @@ export class CratePostComponent implements OnInit {
         (res) => {
           // Show a success message
           this.toastr.success('Post Published successfully!', 'Success');
-          
 
           // Navigate to the /posts page
           this.router.navigate(['/posts']);
@@ -368,7 +369,6 @@ export class CratePostComponent implements OnInit {
         (error) => {
           // Show an error message
           this.toastr.error('Error Publishing post.', 'Error');
-         
         }
       );
     }

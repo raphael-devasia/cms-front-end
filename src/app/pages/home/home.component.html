@@ -203,60 +203,81 @@
 
 <!-- <app-footer></app-footer> -->
 
-<div class="mb-7 pb-4">
-<app-header [categories]="categories"></app-header>
-</div>
 
+
+
+<div class="mb-7 pb-4">
+    <app-header [categories]="categories"></app-header>
+</div>
 
 <section class="section-padding">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="row">
-                    <!-- Post grid example -->
-                    <div class="col-lg-4 col-md-6 col-sm-6 mb-4" *ngFor="let post of posts">
-                        <article class="post-grid">
-                        <a class="post-thumb mb-4 d-block p-3" [routerLink]="['/blog/{{post._id}}/{{userId}}']" >
-                            <img [src]="post.image" alt="" class="img-fluid w-100">
-                        </a>
+                    <!-- Post grid with pagination -->
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-4" *ngFor="let post of paginatedPosts">
+                        <article class="post-grid position-relative">
+                            <!-- Featured badge -->
+                            <div *ngIf="post.isFeatured" class="featured-badge">
+                                <span class="text-dark font-weight-bold">Featured</span>
+                            </div>
+
+                            <a class="post-thumb mb-4 d-block p-3" [routerLink]="['/blog', post._id, userId]">
+                                <img [src]="post.image" alt="" class="img-fluid w-100">
+                            </a>
 
                             <div class="post-content-grid p-3">
                                 <div class="label-date">
-                                    <!-- Format the date to be more readable -->
                                     <span class="month text-uppercase">{{ post.createdAt | date:'dd MMM yyyy' }}</span>
                                 </div>
-                                <span class="cat-name text-color font-sm font-extra text-uppercase">{{
-                                    post.category.category }}</span>
+                                <span class="cat-name text-color font-sm font-extra text-uppercase">
+                                    {{ post.category.category }}
+                                </span>
                                 <h3 class="post-title mt-2">
-                                    <a [routerLink]="['/blog', post._id]">{{ post.title }}</a>
+                                    <a [routerLink]="['/blog', post._id, userId]">{{ post.title }}</a>
                                 </h3>
-                                <!-- Limit the excerpt to 20 words -->
                                 <p>{{ post.excerpt | limitWords:20 }}</p>
                             </div>
                         </article>
                     </div>
-                    <!-- Repeat for other posts -->
-
                 </div>
             </div>
 
             <!-- Pagination -->
-            <div class="m-auto text-center d-flex justify-content-center">
+            <div class="m-auto text-center d-flex justify-content-center" *ngIf="posts.length > 0">
                 <div class="pagination mt-5 pt-4">
                     <ul class="list-inline justify-content-center">
-                        <li class="list-inline-item"><a href="#" class="active">1</a></li>
-                        <li class="list-inline-item"><a href="#">2</a></li>
-                        <li class="list-inline-item"><a href="#">3</a></li>
-                        <li class="list-inline-item"><a href="#" class="prev-posts"><i class="ti-arrow-right"></i></a>
+                        <!-- Previous button -->
+                        <li class="list-inline-item">
+                            <a href="javascript:void(0)" [class.disabled]="pagination.currentPage === 1"
+                                (click)="previousPage()">
+                                <i class="ti-arrow-left"></i>
+                            </a>
+                        </li>
+
+                        <!-- Page numbers -->
+                        <li class="list-inline-item" *ngFor="let page of pages">
+                            <a href="javascript:void(0)" [class.active]="page === pagination.currentPage"
+                                (click)="changePage(page)">
+                                {{ page }}
+                            </a>
+                        </li>
+
+                        <!-- Next button -->
+                        <li class="list-inline-item">
+                            <a href="javascript:void(0)"
+                                [class.disabled]="pagination.currentPage === pagination.totalPages"
+                                (click)="nextPage()">
+                                <i class="ti-arrow-right"></i>
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
-
 
 <!-- Footer start -->
 <footer class="footer-section bg-grey py-5">

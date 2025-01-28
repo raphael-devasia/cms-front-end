@@ -11,7 +11,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-import {  provideHttpClient } from '@angular/common/http';
+import {  provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './auth.interceptor';
 
 
 export const appConfig: ApplicationConfig = {
@@ -26,9 +27,9 @@ export const appConfig: ApplicationConfig = {
     MatDialog,
     provideAnimations(), // required animations providers
     provideToastr(), // Toastr providers
-    provideFirebaseApp(() => initializeApp({ ...environment.firebaseConfig })),
+    // provideFirebaseApp(() => initializeApp({ ...environment.firebaseConfig })),
     provideFirestore(() => getFirestore()),
     AngularEditorModule,
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([ authInterceptor])),
   ],
 };

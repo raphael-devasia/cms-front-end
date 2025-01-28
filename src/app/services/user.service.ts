@@ -1,13 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   // private backendUrl = 'http://localhost:3000/api';
-  private backendUrl = 'https://cms-backend-1-jofv.onrender.com/api';
+  // private backendUrl = 'https://cms-backend-1-jofv.onrender.com/api';
+
+  private backendUrl = environment.backendUrl;
 
   private userProfile = JSON.parse(localStorage.getItem('userProfile')!);
   private userId = this.userProfile.userId;
@@ -64,8 +67,19 @@ export class UserService {
   }
 
   toggleFeatured(postId: string, isFeatured: boolean): Observable<void> {
-    return this.http.patch<void>(`${this.backendUrl}/posts${postId}`, {
-      featured: isFeatured,
+    return this.http.patch<void>(`${this.backendUrl}/posts/${postId}`, {
+      isFeatured: isFeatured,
     });
+  }
+  getPostComments(postId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.backendUrl}/comments/${postId}`);
+  }
+  getUserComments(userId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.backendUrl}/posts/all/${userId}`);
+  }
+  createComment(comment: any): Observable<any> {
+    console.log('the comment is ',comment);
+    
+    return this.http.post<any>(`${this.backendUrl}/comments`, comment);
   }
 }

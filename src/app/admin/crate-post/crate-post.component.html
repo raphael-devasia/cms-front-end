@@ -1,3 +1,4 @@
+<app-admin-navbar></app-admin-navbar>
 <section class="edit-post-section mt-5">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -88,8 +89,14 @@
                         <div class="invalid-feedback" *ngIf="shouldShowError('image', 'required')">Image is required.</div>
                     </div> -->
 <div class="mb-3">
+    <!-- Show loading spinner -->
+    <div *ngIf="isLoading" class="loading-indicator">
+        <p>Loading...</p>
+        <!-- You can use an actual spinner component or icon -->
+        <div class="spinner"></div>
+    </div>
     <label for="postImage" class="form-label">Choose Image</label>
-    <img *ngIf="imgSrc" [src]="imgSrc" class="form-control img-fluid img-preview border mb-2" alt="Post Image" />
+    <img *ngIf="imgSrc &&!isLoading" [src]="imgSrc" class="form-control img-fluid img-preview border mb-2" alt="Post Image" />
     <input type="file" class="form-control" id="postImage" accept="image/*" (change)="showPreview($event)"
 />
    

@@ -1,4 +1,4 @@
-
+<!-- 
 
     <div class="container mt-5">
         <div class="comment-area my-5">
@@ -41,4 +41,28 @@
             </div>
         </div>
     </div>
+ -->
 
+
+<div class="container mt-5">
+    <div class="comment-area my-5">
+        <h3 class="mb-4 text-center">{{ comments.length || 0 }} Comments</h3>
+
+        <!-- Iterate through the comments array -->
+        <div *ngFor="let comment of comments" class="comment-area-box media mt-5">
+           
+            <div class="media-body ml-4">
+                <h4 class="mb-0">{{ comment.name }}</h4>
+                <!-- <span class="date-comm font-sm text-capitalize text-color">
+                    <i class="ti-time mr-2"></i>{{ comment.date | date: 'longDate' }}
+                </span> -->
+
+                <div class="comment-content mt-3">
+                    <p>{{ comment.comment }}</p>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,15 +1,38 @@
+<app-admin-navbar></app-admin-navbar>
+
 <div class="container" style="max-width: 70%;">
     <div class="card p-4 mb-4">
-        <h4 class="card-title mb-3">{{ isEdit ? 'Update Category' : 'Add Category' }}</h4>
+        <h4 class="card-title my-3">{{ isEdit ? 'Update Category' : 'Add Category' }}</h4>
         <form [formGroup]="categoryForm" (ngSubmit)="handleCategorySubmit()">
             <div class="row g-3">
                 <div class="col-md-8">
                     <input type="text" class="form-control" placeholder="Enter category name"
                         formControlName="categoryName" required />
                 </div>
-                <div class="col-md-4 text-md-start text-center">
-                    <button type="submit" class="btn btn-primary w-100" [disabled]="categoryForm.invalid">
+            <div *ngIf="categoryForm.get('categoryName')?.invalid && categoryForm.get('categoryName')?.touched"
+                class="validation-error">
+                <small *ngIf="categoryForm.get('categoryName')?.hasError('required')">
+                    Category name is required.
+                </small>
+                <small *ngIf="categoryForm.get('categoryName')?.hasError('minlength')">
+                    Category name must be at least 3 characters long.
+                </small>
+                <small *ngIf="categoryForm.get('categoryName')?.hasError('pattern')">
+                    Only letters are allowed, with spaces only between words.
+                </small>
+            </div>
+
+
+                
+                <div class="col-md-4 text-md-start text-center d-flex justify-content-between gap-2">
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary flex-grow-1" [disabled]="categoryForm.invalid">
                         {{ isEdit ? 'Update Category' : 'Add Category' }}
+                    </button>
+                
+                    <!-- Cancel Button (Shown only when isEdit is true) -->
+                    <button *ngIf="isEdit" type="button" class="btn btn-secondary flex-grow-1" (click)="cancelEdit()">
+                        Cancel
                     </button>
                 </div>
             </div>
@@ -52,4 +75,7 @@
             <p *ngIf="categories.length === 0" class="text-center mt-4">No categories added yet. Please add one!</p>
         </div>
     </div>
+</div>
+<div class="center-container">
+    <app-back-to-dashboard></app-back-to-dashboard>
 </div>

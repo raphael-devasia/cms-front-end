@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -8,7 +9,8 @@ import { map, Observable } from "rxjs";
 export class UploadServiceService {
   constructor(private http: HttpClient) {}
   // backendUrl = 'http://localhost:3000/api';
-  private backendUrl = 'https://cms-backend-1-jofv.onrender.com/api';
+  // private backendUrl = 'https://cms-backend-1-jofv.onrender.com/api';
+  private backendUrl = environment.backendUrl;
 
   generatePresignedUrl(
     fileName: string,

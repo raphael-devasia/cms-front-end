@@ -12,21 +12,42 @@ import { PostsComponent } from './admin/posts/posts.component';
 import { CratePostComponent } from './admin/crate-post/crate-post.component';
 import { RegisterComponent } from './admin/auth/register/register.component';
 import { UpdatePostComponent } from './admin/update-post/update-post.component';
+import { NotfountComponent } from './notfount/notfount.component';
+import { authGuard } from './auth.guard';
 
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'category', component: SingleCategoryComponent },
-  { path: 'blog/:id', component: SinglePostComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'sign-up', component: RegisterComponent },
+
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [authGuard],
+  },
+  { path: 'posts', component: PostsComponent, canActivate: [authGuard] },
+  {
+    path: 'categories',
+    component: CategoryComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'create-post',
+    component: CratePostComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'edit-post/:id',
+    component: UpdatePostComponent,
+    canActivate: [authGuard],
+  },
+  {  path: 'blog/:postId/:userId', component: SinglePostComponent },
   { path: 'about', component: AboutComponent },
   { path: 'term-conditions', component: TermsNConditionsComponent },
   { path: 'contact', component: ConatactUsComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'sign-up', component: RegisterComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'categories', component: CategoryComponent },
-  { path: 'posts', component: PostsComponent },
-  { path: 'create-post', component: CratePostComponent },
-  { path: 'edit-post/:id', component: UpdatePostComponent },
+  { path: 'category', component: SingleCategoryComponent },
+
   { path: 'profile/:id', component: HomeComponent },
+  { path: '**', component: NotfountComponent },
 ];

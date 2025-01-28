@@ -1,5 +1,7 @@
   .category-section .btn-primary {
         background-color: #007bff;
+        padding-top: 2rem;
+        
         border-color: #007bff;
         transition: background-color 0.3s ease;
     }
@@ -22,3 +24,15 @@
         font-weight: bold;
         color: #343a40;
     }
+    .center-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;    /* Center vertically */
+  padding-top: 2rem;        /* Full viewport height */
+  width: 100vw;           /* Full viewport width */
+  
+}
+.validation-error {
+  color: red;
+  font-size: 0.875rem; /* Optional: Adjust font size for better readability */
+}
